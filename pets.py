@@ -4,7 +4,7 @@ from time_calc import time_min_f,time_hour_f, time_second_f, last_feed_f, last_p
 
 
 class Pet:
-    def __init__(self, name, spec, hunger='100%', joy='bored'):
+    def __init__(self, name, spec, gender, hunger='100%', joy='bored'):
         self.name = name
         self.age = 0
         self.spec = spec
@@ -84,16 +84,17 @@ class Pet:
 
     def Marry (self,second_pet):
         age = age_f(self)
-        if age > 10 :
-            print('done')
-            self.married_to = second_pet
-            second_pet.married_to = self
-            if self == second_pet:
-                return "you can't fuck yourself"
-            return f'{self.name} is married to {second_pet.name}'
-        else:
-            print (f"your pet's age is {self.age}. it's too young for marriege")
-            return f"your pet's age is {self.age}. it's too young for marriege. that's child abuse you son of a bird"
+        if self.gender == 'm' and second_pet.gender == 'f' or self.gender == 'f' and second_pet.gender == 'm':
+            if age == 0 :
+                print('done')
+                self.married_to = second_pet
+                second_pet.married_to = self
+                if self == second_pet:
+                    return "you can't fuck yourself"
+                return f'{self.name} is married to {second_pet.name}'
+            else:
+                print (f"your pet's age is {self.age}. it's too young for marriege")
+                return f"your pet's age is {self.age}. it's too young for marriege. that's child abuse you son of a bird"
 
     def Give_birth (self,second_pet,name):
         print('IN')

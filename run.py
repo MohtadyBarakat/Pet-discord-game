@@ -8,7 +8,7 @@ import users
 
 
 current_pets = {}
-users = {}
+all_user = {}
 
 
 if 'data_base.bb' in os.listdir ('./'):
@@ -52,18 +52,28 @@ check_joy: is to check if your {specs} id joyfull  or need your attention. remeb
 async def Call (msg):
     order = msg.content.split(" ")[1]
     name = pet_name_creat (msg)
-    new_user = users.User(user_id = msg.author.id)
+    if not msg.author.id in all_user:
+        new_user = users.User(user_id = msg.author.id)
+        all_user[msg.author.id]=new_user
+    elif msg.author.id in all_user:
+        new_user = all_user[msg.author.id]
     if order == "start":
         await start_game(msg)
     elif order == "creat":
+        ###!prt creat specs gender name 
         specs = msg.content.split(" ")[2]
-        new_pet = all_pets[specs](name=name, spec=specs)
-        await congrats_new_pet(msg, name, specs)
-        output = new_user.Buy()
+        gender = msg.content.split(" ")[-2]
+        output,con = new_user.Buy()
         await msg.channel.send(output)
-        if not msg.author.id in current_pets: 
-            current_pets[msg.author.id]={}
-        current_pets[msg.author.id][name] = new_pet
+        try:
+            if con == 0:
+                if gender == 'm' or gender == 'f':
+                    new_pet = all_pets[specs](name=name, spec=specs, gender=gender)
+                    await congrats_new_pet(msg, name, specs)
+                    if not msg.author.id in current_pets: 
+                        all_user[msg.author.id]={}
+                    current_pets[msg.author.id][name] = new_pet
+        except: pass
 
     elif order == "marry":
         second_pet = msg.content.split(" ")[-1]
@@ -135,4 +145,4 @@ async def on_message(message):
 
 
 print("client running, open discord ...")
-client.run('OTI3MjgzMjkyMjcxNzA2MTMz.YdH93A.34GEFEj6ijB7K89dHMH0ion-0go')
+client.run('OTI3MjgzMjkyMjcxNzA2MTMz.YdH93A.xOfPXdFqrOlmsw_DCsWWqi0c5iQ')
