@@ -96,6 +96,8 @@ class Pet:
             else:
                 print (f"your pet's age is {self.age}. it's too young for marriege")
                 return f"your pet's age is {self.age}. it's too young for marriege. that's child abuse you son of a bird"
+        else:
+            return "pets must have diffrent genders to get married"
 
     def Give_birth (self,second_pet,name):
         print('IN')
