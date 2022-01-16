@@ -11,6 +11,7 @@ class Pet:
         self.hunger = hunger
         self.joy = joy
         self.genesis = int(time())
+        self.gender = gender
 
     def Stat (self):
         print('name:',self.name)
@@ -85,7 +86,7 @@ class Pet:
     def Marry (self,second_pet):
         age = age_f(self)
         if self.gender == 'm' and second_pet.gender == 'f' or self.gender == 'f' and second_pet.gender == 'm':
-            if age == 0 :
+            if age == 0 or age > 0 :
                 print('done')
                 self.married_to = second_pet
                 second_pet.married_to = self
